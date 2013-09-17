@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name=viewport content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+  <!--[if lt IE 9]>
+    <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+
+  <title>Addax.js: JavaScript library</title>
+  
+  <meta name=description content="The aerogel-weight jQuery-compatible JavaScript library
+">
+  
+  <link rel=stylesheet href=style.css>
+
+  <meta name=apple-mobile-web-app-capable content=yes>
+  <meta name=apple-mobile-web-app-status-bar-style content=white>
+  <meta name=format-detection content="telephone=no">
+
+  <link rel=apple-touch-icon-precomposed href=icon.png>
+  <link rel=icon type=image/png href=favicon.png>
+
+  <script type="text/javascript" src="source/addax.js"></script>
+
+</head>
+<body>
+
+<div id="test">
+    
+  <input type="button" id="a" class="button">a</input>
+  <button id="aaa" class="button">b</button>
+  <input type="button" id="b" class="button">b</input>
+  <input type="button" id="c" class="button">c</input>
+
+</div>
+
+  <div id="menu_icon">≣</div>
+
+<aside id="sidebar" class="interface">
+
+  <a class="toc_title" href="#">
+    Addax.js <span class="version">(1.0)</span>
+  </a>
+
+  <ul class=toc_section>
+    <li><a href="#download">Download</a></li>
+    <li><a href="#platforms">Target Platforms</a></li>
+  </ul>
+
+  <hr>
+
+  <a class="toc_title" href="#core">Core</a>
+  
+  <ul class="toc_section">
+  
+  <li><a href="#$$.extend">$$.extend</a></li>
+  
+  <li><a href="#addClass">addClass</a></li>
+  
+  <li><a href="#append">append</a></li>
+  
+  <li><a href="#prepend">prepend</a></li>
+  
+  <li><a href="#attr">attr</a></li>
+  
+  <li><a href="#before">before</a></li>
+
+  <li><a href="#css">css</a></li>
+  
+  <li><a href="#html">html</a></li>
+  
+  <li><a href="#next">next</a></li>
+  
+  <li><a href="#prev">prev</a></li>
+
+  <li><a href="#show">show</a></li>
+  
+  <li><a href="#hide">hide</a></li>
+  
+  <li><a href="#removeClass">removeClass</a></li>
+  
+</ul>
+
+  <a class="toc_title" href="#event">Eventos</a>
+  
+  <ul class="toc_section">
+  
+  <li><a href="#bind">bind</a></li>
+  
+  <li><a href="#unbind">unbind</a></li>
+  
+</ul>
+
+
+  <a class="toc_title" href="#ajax">Ajax</a>
+  
+  <ul class="toc_section">
+  
+  <li><a href="#$$.ajax">$$.ajax</a></li>
+  
+</ul>
+
+<a class="toc_title" href="#templating">Templating</a>
+  
+  <ul class="toc_section">
+  
+  <li><a href="#$$.template">$$.template</a></li>
+  
+</ul>
+
+</aside>
+
+<div class="container">
+
+  <header>
+  <h1><img src=logo.png alt=Zepto.js></h1>
+
+  <p>
+    <b>Addax</b> es una librería minimalista de javascript.
+    <em>Si sabes usar jQuery, sabes usar Addax</em>
+  </p>
+
+  <p>
+    Mientras jQuery no cubre los objetivos de este diseño, la <b>API esta a la altura de su homólogo.</b> El objetivo es tener una librería modular de 4-8k - que descargue y ejecute rápido, con una API familiar y versátil.<b>
+  </p>
+
+  <p>
+    Addax es software libre y se distribuye bajo la promoción de negocios.
+  </p>
+
+  </header>
+
+  <h3 id="download">Download Addax</h3>
+
+  <p>
+    El código por defecto incluyen los siguiente módulos:<br>
+    <em>Core, Ajax, Events, Detect, Dom, Templating</em>.
+  </p>
+
+  <ul class="downloads">
+    <li>
+      <a href="source/addax.js" class="download">addax.js v1.0 (desarrollo)</a>
+      – <i>12.3k sin comprimir</i>
+    </li>
+    <li>
+      <a href="source/addax-min.js" class="download">addax.min.js v1.0 (producción)</a>
+      – <i>5.0k comprimido</i>
+    </li>
+  </ul>
+
+  <p>
+    Incluye Addax con un tag script antes de finalizar tu página.
+  </p>
+
+<div class="highlight"><pre><code class="html">...
+<span class="nt">&lt;script </span><span class="na">src=</span><span class="s">"addax.min.js"</span><span class="nt">&gt;&lt;/script&gt;</span>
+<span class="nt">&lt;/body&gt;</span>
+<span class="nt">&lt;/html&gt;</span>
+</code></pre></div>
+
+  <p>
+    <b>Si tu necesitas que tenga soporte con IE, puedes hacer un fall back</b>
+  </p>
+
+<div class="highlight"><pre><code class="html"><span class="nt">&lt;script&gt;</span>
+<span class="nb">document</span><span class="p">.</span><span class="nx">write</span><span class="p">(</span><span class="s1">&#39;&lt;script src=&#39;</span> <span class="o">+</span>
+<span class="p">(</span><span class="s1">&#39;__proto__&#39;</span> <span class="k">in</span> <span class="p">{}</span> <span class="o">?</span> <span class="s1">&#39;addax&#39;</span> <span class="o">:</span> <span class="s1">&#39;jquery&#39;</span><span class="p">)</span> <span class="o">+</span>
+<span class="s1">&#39;.js&gt;&lt;\/script&gt;&#39;</span><span class="p">)</span>
+<span class="nt">&lt;/script&gt;</span>
+</code></pre></div>
+
+  <h3 id="platforms">Target platforms</h3>
+
+  <h4>Mobile browsers</h4>  
+  <ul>
+    <li>iOS 4+ Safari</li>
+    <li>Chrome for Android</li>
+    <li>Chrome for iOS</li>
+    <li>Android 2.2+ Browser</li>
+    <li>webOS 1.4.5+ Browser</li>
+    <li>BlackBerry Tablet OS 1.0.7+ Browser</li>
+    <li>Amazon Silk 1.0+</li>
+    <li>Firefox for Android</li>
+    <li>Firefox OS Browser</li>
+    <li>Practically any WebKit-based browsers/runtimes</li>
+  </ul>
+
+  <p>
+    <em>Tenga en cuenta que algunas de las características de Addax se dirigen específicamente a los navegadores móviles, ya que el objetivo original del proyecto era proporcionar específicamente una alternativa más ligera a jQuery para la web móvil.</em>
+  </p>
+
+  <p>
+    Addax es una buena opción para el navegador (por Safari y Chrome) y desarrollar puntos de vista basados ​​en HTML dentro de los marcos de aplicaciones nativas, como PhoneGap.
+  <p>
+
+  <p>
+    En resumen, se espera que Addax pueda trabajar en todos los navegadores modernos.
+  </p>
+
+  <h3>Crear plug-ins</h3>
+
+  <p>
+    Los plug-ins pueden ser creados agregando una propiedad a
+    <a href="#addax"><code>addax</code></a>:
+  </p>
+
+<div class="highlight"><pre><code class="js"><span class="p">;(</span><span class="kd">function</span><span class="p">(</span><span class="nx">$$</span><span class="p">){</span>
+  <span class="nx">$$</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">$$.fn</span><span class="p">,</span> <span class="p">{</span>
+    <span class="nx">foo</span><span class="o">:</span> <span class="kd">function</span><span class="p">(){</span>
+      <span class="c1">// Esto hace referencia a la actual colección de Addax.</span>
+      <span class="c1">// Retornamos el objeto.</span>
+      <span class="k">return</span> <span class="k">this</span><span class="p">.</span><span class="nx">html</span><span class="p">(</span><span class="s1">&#39;bar&#39;</span><span class="p">)</span>
+    <span class="p">}</span>
+  <span class="p">})</span>
+<span class="p">})(</span><span class="nx">addax</span><span class="p">)</span>
+</code></pre></div>
+
+  <section id="documentation">
+
+    <hr>
+    <h2 id="core">Métodos del Core</h2>
+    
+    
+<article class="method" id="$()">
+  <h3>$()</h3>
+  
+  
+  <pre class=signature><code>$.find(selector) ⇒ collection
+$(&lt;Addax collection&gt;) ⇒ same collection
+$(&lt;DOM nodes&gt;) ⇒ collection
+$(htmlString) ⇒ collection
+$(htmlString, attributes) ⇒ collection [v1.0]
+</code></pre>
+
+  <p>Crear una colleción de objetos Addax mediante la realización de un selector CSS, envolviendo nodos del DOM o creando elementos desde una cadena en HTML</p>
+
+	<p>Una colección es un objecto matriz a la cual se le encadenan métodos para manipular los nodos del DOM que hace referencia. Todos los métodos de la presente documentación son los métodos de recolección, excepto los que actúan directamente sobre el objeto $ (addax), como $.extend</p>
+
+<div class="highlight"><pre><code class="js"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;div&#39;</span><span class="p">)</span>  <span class="c1">//=&gt; todos los elementos div de la página</span>
+<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;#foo&#39;</span><span class="p">)</span> <span class="c1">//=&gt; elementos con ID &quot;foo&quot;</span>
+
+<span class="c1">// Crear elementos:</span>
+<span class="nx">$</span><span class="p">(</span><span class="s2">&quot;&lt;p&gt;Hello&lt;/p&gt;&quot;</span><span class="p">)</span> <span class="c1">//=&gt; Un nuevo elemento P</span></div>
+
+</article>
+
+<article class="method" id="$$.extend">
+  <h3>$$.extend</h3>
+  
+  
+  <pre class=signature><code>$$.extend(target, [source, [source2, ...]]) ⇒ target
+$$.extend(true, target, [source, ...]) ⇒ target [v1.0]
+</code></pre>
+  
+  <p>Extender un objeto con todas las propiedades del objeto padre</p>
+
+<div class="highlight"><pre><code class="js"><span class="kd">var</span> <span class="nx">target</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">one</span><span class="o">:</span> <span class="s1">&#39;patridge&#39;</span> <span class="p">},</span>
+    <span class="nx">source</span> <span class="o">=</span> <span class="p">{</span> <span class="nx">two</span><span class="o">:</span> <span class="s1">&#39;turtle doves&#39;</span> <span class="p">}</span>
+
+<span class="nx">$$</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">target</span><span class="p">,</span> <span class="nx">source</span><span class="p">)</span>
+<span class="c1">//=&gt; { one: &#39;patridge&#39;,</span>
+<span class="c1">//     two: &#39;turtle doves&#39; }</span>
+</code></pre></div>
+
+</article>
+
+<article class="method" id="addClass">
+  <h3>addClass</h3>
+   
+  <pre class=signature><code>addClass(name) ⇒ self
+addClass(function(index, oldClassName){ ... }) ⇒ self
+</code></pre>
+  
+  <p>Agrega el nombre de una clase para la colección de los elementos.</p>
+
+</article>
+
+<article class="method" id="append">
+  <h3>append</h3>
+
+  <pre class=signature><code>append(content) ⇒ self
+</code></pre>
+  
+  <p>Agregar contenido al DOM dentro de cada elemento individual de la colección. El
+contenido puede ser una cadena HTML, un nodo DOM o una matriz de nodos.</p>
+
+<div class="highlight"><pre><code class="js"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">).</span><span class="nx">append</span><span class="p">(</span><span class="s1">&#39;&lt;li&gt;new list item&lt;/li&gt;&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+</article>
+
+<article class="method" id="prepend">
+  <h3>prepend</h3>
+
+  <pre class=signature><code>prepend(content) ⇒ self
+</code></pre>
+  
+  <p>Agregar contenido al DOM antes del contenido de cada elemento individual de la colección. El
+contenido puede ser una cadena HTML, un nodo DOM o una matriz de nodos.</p>
+
+<div class="highlight"><pre><code class="js"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;ul&#39;</span><span class="p">).</span><span class="nx">prepend</span><span class="p">(</span><span class="s1">&#39;&lt;li&gt;new list item&lt;/li&gt;&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+</article>
+
+<article class="method" id="attr">
+  <h3>attr</h3>
+  
+  <pre class=signature><code>attr(name) ⇒ string
+attr(name, value) ⇒ self
+attr(name, function(index, oldValue){ ... }) ⇒ self
+attr({ name: value, name2: value2, ... }) ⇒ self
+</code></pre>
+  
+  <p>Lee los atributos de la colleción y agrega los atributos correspondientes expresados como string.</p>
+
+<div class="highlight"><pre><code class="js"><span class="kd">var</span> <span class="nx">form</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;form&#39;</span><span class="p">)</span>
+<span class="nx">form</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">)</span>             <span class="c1">//=&gt; leer valor</span>
+<span class="nx">form</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="s1">&#39;/create&#39;</span><span class="p">)</span>  <span class="c1">//=&gt; definir valor</span>
+<span class="nx">form</span><span class="p">.</span><span class="nx">attr</span><span class="p">(</span><span class="s1">&#39;action&#39;</span><span class="p">,</span> <span class="kc">null</span><span class="p">)</span>       <span class="c1">//=&gt; remover atributo</span>
+</div>
+
+</article>
+
+<article class="method" id="before">
+  <h3>before</h3>
+  
+  <pre class=signature><code>before(content) ⇒ self
+</code></pre>
+  
+  <p>Agregar contenido al DOM antes de cada elemento individual de la colección. El
+contenido puede ser una cadena HTML, un nodo DOM o una matriz de nodos.</p>
+
+<div class="highlight"><pre><code class="js"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;table&#39;</span><span class="p">).</span><span class="nx">before</span><span class="p">(</span><span class="s1">&#39;&lt;p&gt;See the following table:&lt;/p&gt;&#39;</span><span class="p">)</span>
+</code></pre></div>
+
+</article>
+
+<article class="method" id="css">
+  <h3>css</h3>
+  
+  
+  <pre class=signature><code>css(property) ⇒ value
+css(property, value) ⇒ self
+css({ property: value, property2: value2, ... }) ⇒ self
+</code></pre>
+  
+  <p>Lee o establece las propiedades CSS de los elementos DOM. Cuando se da ningún valor, devuelve el CSS
+con la propiedad del primer elemento de la colección. Cuando se da un valor, establece la
+la propiedad en cada elemento de la colección.</p>
+
+<div class="highlight"><pre><code class="js"><span class="kd">var</span> <span class="nx">elem</span> <span class="o">=</span> <span class="nx">$</span><span class="p">(</span><span class="s1">&#39;h1&#39;</span><span class="p">)</span>
+<span class="nx">elem</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;background-color&#39;</span><span class="p">)</span>          <span class="c1">// leer propiedad</span>
+<span class="nx">elem</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;background-color&#39;</span><span class="p">,</span> <span class="s1">&#39;#369&#39;</span><span class="p">)</span>  <span class="c1">// definit propiedad</span>
+<span class="nx">elem</span><span class="p">.</span><span class="nx">css</span><span class="p">(</span><span class="s1">&#39;background-color&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>      <span class="c1">// remover propiedad</span>
+</div>
+
+</article>
+
+<article class="method" id="hasClass">
+  <h3>hasClass</h3>
+  
+  
+  <pre class=signature><code>hasClass(name) ⇒ boolean
+</code></pre>
+  
+  <p>Hace una revisión del elemento para verificar si tiene una clase.</p>
+
+</article>
+
+<article class="method" id="html">
+  <h3>html</h3>
+  
+  
+  <pre class=signature><code>html() ⇒ string
+html(content) ⇒ self
+html(function(index, oldHtml){ ... }) ⇒ self
+</code></pre>
+  
+  <p>Agrega un contenido html a la coleción del elemento, este método remueve el contenido del elemento y agrega el string enviado por el método.</p>
+
+<div class="highlight"><pre><code class="js">
+<span class="nx">$</span><span class="p">(</span><span class="s1">&#39;.comment p&#39;</span><span class="p">).</span><span class="nx">html</span><span class="p">(</span><span class="kd">function</span><span class="p">(</span><span class="nx">idx</span><span class="p">,</span> <span class="nx">oldHtml</span><span class="p">){</span>
+  <span class="k">return</span> <span class="nx">oldHtml</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="sr">/(^|\W)@(\w{1,15})/g</span><span class="p">,</span>
+    <span class="s1">&#39;$1@&lt;a href=&quot;http://twitter.com/$2&quot;&gt;$2&lt;/a&gt;&#39;</span><span class="p">)</span>
+<span class="p">})</span>
+</code></pre></div>
+
+</article>
+
+<article class="method" id="next">
+  <h3>next</h3>
+  
+  <pre class=signature><code>next() ⇒ collection
+next(selector) ⇒ collection [v1.0]
+</code></pre>
+  
+  <p>Obtiene el siguiente elemento filtrado por el selector de cada elemento de la colección.</p>
+
+<div class="highlight"><pre><code class="js"><span class="nx">$</span><span class="p">(</span><span class="s1">&#39;dl dt&#39;</span><span class="p">).</span><span class="nx">next</span><span class="p">()</span>   <span class="c1">//=&gt; the DD elements</span>
+</code></pre></div>
+
+</article>
+
+<article class="method" id="prev">
+  <h3>prev</h3>
+  
+  <pre class=signature><code>prev() ⇒ collection
+prev(selector) ⇒ collection [v1.0]
+</code></pre>
+  
+  <p>Obtiene el elemento previo filtrado por el selector de cada elemento de la colección.</p>
+
+</article>
+
+<article class="method" id="removeClass">
+  <h3>removeClass</h3>
+  
+  <pre class=signature><code>removeClass([name]) ⇒ self
+removeClass(function(index, oldClassName){ ... }) ⇒ self
+</code></pre>
+  
+  <p>Remueve una clase específica de la colección del elemento expresada como un string en el llamado al método.</p>
+
+</article>
+
+<article class="method" id="show">
+  <h3>show</h3>
+  
+  
+  <pre class=signature><code>show() ⇒ self
+</code></pre>
+  
+  <p>Restaura el valor por defecto de una colección de elementos que estuvo definida en <a href="#hide">hide</a>.</p>
+
+</article>
+
+<article class="method" id="hide">
+  <h3>hide</h3>
+  
+  
+  <pre class=signature><code>hide() ⇒ self
+</code></pre>
+  
+  <p>Oculta la colección del elementos del DOM y los puedes mostrar con <a href="#show">show</a>.</p>
+
+</article>
+
+    <hr>
+    <h2 id="event">Manejadores de Eventos</h2>
+    
+<article class="method" id="bind">
+  <h3>bind
+  <span class="emoji" title="deprecated">🐶🔫</span>
+   
+  </h3>
+  
+  <pre class="signature"><code>bind(type, function(e){ ... }) ⇒ self
+bind({ type: handler, type2: handler2, ... }) ⇒ self
+</code></pre>
+  
+  <p>Adjunta un controlador de eventos a los elementos.</p>
+
+</article>
+
+<article class="method" id="unbind">
+  <h3>unbind
+  <span class="emoji" title="deprecated">🐶🔫</span>
+  </h3>
+  
+  <pre class="signature"><code>unbind(type, function(e){ ... }) ⇒ self
+unbind({ type: handler, type2: handler2, ... }) ⇒ self
+</code></pre>
+  
+  <p>Remueve el manejador de eventos.</p>
+
+</article>
+
+    <hr>
+    <h2 id="ajax">Ajax</h2>
+    
+    
+<article class="method" id="$$.ajax">
+  <h3>$$.ajax
+  
+   
+  </h3>
+  
+  
+  <pre class=signature><code>$$.ajax(options) ⇒ XMLHttpRequest</code></pre>
+
+  <ul>
+    <li>type: POST || GET</li>
+    <li>url: destination</li>
+    <li>success: function</li>
+  </ul>
+
+<p>De forma predeterminada, los eventos Ajax se disparan en el objeto del documento. Sin embargo, si el contexto de una solicitud es un nodo DOM, los eventos se activan en ese nodo.</p>
+
+<div class="highlight"><pre><code class="js">
+
+<span class="nx">$$</span><span class="p">.</span><span class="nx">ajax</span><span class="p">({</span>
+  <span class="nx">type</span><span class="o">:</span> <span class="s1">&#39;GET&#39;</span><span class="p">,</span>
+  <span class="nx">url</span><span class="o">:</span> <span class="s1">&#39;/projects&#39;</span><span class="p">,</span>
+  <span class="nx">success</span><span class="o">:</span> <span class="p">({</span> function() <span class="p">})</span>
+  <span class="p">})</span>
+  <!--<span class="c1">// post payload:</span>
+  <span class="nx">data</span><span class="o">:</span> <span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">({</span> <span class="nx">name</span><span class="o">:</span> <span class="s1">&#39;addax.js&#39;</span> <span class="p">}),</span>
+  <span class="nx">contentType</span><span class="o">:</span> <span class="s1">&#39;application/json&#39;</span>-->
+</code></pre></div>
+
+</article>
+
+<hr>
+    <h2 id="templating">Templating</h2>
+    
+    
+<article class="method" id="$$.template">
+  <h3>$$.template</h3>
+  
+  
+  <pre class="signature"><code>tmpl = $$.template(tmpl) ⇒ string</code></pre>
+  <pre class="signature"><code>tmpl.render(data) ⇒ tmpl</code></pre>
+
+<p>Agregar un template al objecto definiendo el renderizado de los datos mediante llaves. Con esto podemos iterar y condicionar el renderizado.</p>
+
+<div class="highlight"><pre><code class="js">
+
+tmpl = new $$.template("Hello {{=name}}");
+tmpl.render({name: "World!"});
+
+</code></pre></div>
+
+</article>
+    
+    <hr>
+    <h2 id="thanks">Reconocimientos y agradecimientos</h2>
+
+    <p>
+      Un gran agradecimiento a los que quieran colaborar con la mejora de este bisoño framework, de cara a la mejora continua del producto.
+    </p>
+
+  </section>
+
+</div>
+
+</body>
+
+</html>
